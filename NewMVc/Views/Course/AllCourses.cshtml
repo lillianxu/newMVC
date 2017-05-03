@@ -1,0 +1,62 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Application</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo.common-bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/kendo.bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo.all.min.js")"></script>
+</head>
+<body>
+<h2>All Course</h2>
+<hr/>
+    
+   
+<div id="grid"></div>
+
+
+<script>
+
+    $(document).ready(function () {
+        var ds = new kendo.data.DataSource({
+            transport: {
+                read: {
+                    url: "http://localhost:62899/Course/AllCourses",
+                    dataType: "json"
+                }
+            }
+        });
+
+        $("#grid").kendoGrid({
+            columns: [
+                {field: "CourseID",title:"Course ID"},
+                {field: "title",title:"Title" },
+                { command: ["edit", "destroy"] }
+            ],
+
+            filterable: true,
+            editable: "inline",
+            groupable: true,
+            sortable: true,
+            pageable: {
+                refresh: true,
+                pageSizes: true,
+                buttonCount: 5
+            },
+            dataSource: ds
+            //dataSource: {
+            //    type: "get",
+            //    dataType: "json",
+            //    transport: {
+            //        read: "http://localhost:62899/Course/AllCourses"
+            //    },
+            //    pageSize: 20
+            //},
+
+        });
+        </script>
+
+</body>
+</html>
